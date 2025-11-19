@@ -22,7 +22,6 @@ export const tabs = function () {
   if (tabWraps.length === 0) return;
   //for each tabs elements
   tabWraps.forEach((tabWrap, componentIndex) => {
-    console.log(tabWrap);
     //get options
     let loopControls = attr(true, tabWrap.getAttribute(LOOP_CONTROLS));
     let slideTabs = attr(false, tabWrap.getAttribute(SLIDE_TABS));

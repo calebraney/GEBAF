@@ -1,9 +1,12 @@
 import { attr } from './utilities';
+import { accordion } from './interactions/accordion';
+import { banner } from './interactions/banner';
 import { scrollIn } from './interactions/scroll-in';
 import { marquee } from './interactions/marquee';
 import { sliderComponent } from './interactions/slider';
+import { scrolling } from './interactions/scrolling';
 import { tabs } from './interactions/tabs';
-import { accordion } from './interactions/accordion';
+import { loader } from './interactions/loader';
 
 document.addEventListener('DOMContentLoaded', function () {
   // Comment out for production
@@ -38,9 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
         marquee(gsapContext);
         sliderComponent();
         tabs();
+        banner(gsapContext);
         //conditional interactions
         if (!reduceMotion) {
           scrollIn(gsapContext);
+          scrolling(gsapContext);
         }
       }
     );
