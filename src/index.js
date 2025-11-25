@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //elements
     const wrap = document.querySelector(WRAP);
+    const loadTrigger = document.querySelector('.hero_load_trigger');
     const spacer = document.querySelector('.hero_header_spacer');
     const video = document.querySelector('.hero_video');
     const trigger = document.querySelector('.hero_trigger');
@@ -99,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
         createScrollTL();
       },
     });
-
     loadTL.fromTo(
       spacer,
       {
@@ -107,8 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       {
         '--number': '100',
-      },
-      '<'
+      }
     );
     loadTL.fromTo(
       bird,
@@ -130,10 +129,15 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
     //check if the hero wrap is in view, if it is play the load animation, otherwise kill it.
-    if (isInViewport(wrap)) {
+    if (isInViewport(loadTrigger)) {
+      // console.log('in view');
       stopScroll();
       loadTL.play();
     } else {
+      // console.log('not in view');
+      loadTL.progress(1);
+      startScroll();
+      createScrollTL();
     }
   };
   //////////////////////////////
