@@ -1,4 +1,4 @@
-import { attr } from './utilities';
+import { attr, isInViewport, stopScroll, startScroll } from './utilities';
 import { accordion } from './interactions/accordion';
 import { banner } from './interactions/banner';
 import { scrollIn } from './interactions/scroll-in';
@@ -10,7 +10,8 @@ import { loader } from './interactions/loader';
 
 document.addEventListener('DOMContentLoaded', function () {
   // Comment out for production
-  console.log('Local Script');
+  // console.log('Local Script');
+  console.log('Custom Code Loaded');
   // register gsap plugins if available
   if (gsap.ScrollTrigger !== undefined) {
     gsap.registerPlugin(ScrollTrigger);
@@ -21,7 +22,120 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //////////////////////////////
   //Global Variables
+  const hero = function () {
+    const WRAP = '.hero_wrap';
 
+    //elements
+    const wrap = document.querySelector(WRAP);
+    const spacer = document.querySelector('.hero_header_spacer');
+    const video = document.querySelector('.hero_video');
+    const trigger = document.querySelector('.hero_trigger');
+    const mask = document.querySelector('.hero_mask');
+    const maskPath = document.querySelector('.hero_path');
+
+    const bird = document.querySelector('.hero_bird');
+    const overlay = document.querySelector('.hero_overlay');
+
+    const newPath = 'M0 0 L0 0 L1 0 L1 0 L1 1 L0 1 Z';
+
+    //guard clause
+
+    if (!wrap) return;
+
+    function createScrollTL() {
+      let scrollTL = gsap.timeline({
+        paused: true,
+        defaults: {
+          duration: 1,
+          ease: 'power1.out',
+        },
+        scrollTrigger: {
+          trigger: trigger,
+          start: 'top top',
+          end: 'bottom center',
+          scrub: true,
+          markers: false,
+        },
+      });
+      scrollTL.fromTo(
+        mask,
+        {
+          scale: 1,
+        },
+        {
+          scale: 7,
+        },
+        '<'
+      );
+      scrollTL.fromTo(
+        overlay,
+        {
+          '--number': '0',
+        },
+        {
+          '--number': '70',
+        },
+        '<'
+      );
+      //morph tween not currently working
+      // scrollTL.to(
+      //   maskPath,
+      //   {
+      //     morphSVG: newPath,
+      //   },
+      //   '<'
+      // );
+    }
+
+    let loadTL = gsap.timeline({
+      paused: true,
+      delay: 0.8,
+      defaults: {
+        duration: 1.2,
+        ease: 'power2.out',
+      },
+      onComplete: () => {
+        startScroll();
+        createScrollTL();
+      },
+    });
+
+    loadTL.fromTo(
+      spacer,
+      {
+        '--number': '0',
+      },
+      {
+        '--number': '100',
+      },
+      '<'
+    );
+    loadTL.fromTo(
+      bird,
+      {
+        x: '-80vw',
+      },
+      {
+        x: '50vw',
+        duration: 2,
+      },
+      '<'
+    );
+    loadTL.from(
+      mask,
+      {
+        width: '0rem',
+      },
+      '<.2'
+    );
+
+    //check if the hero wrap is in view, if it is play the load animation, otherwise kill it.
+    if (isInViewport(wrap)) {
+      stopScroll();
+      loadTL.play();
+    } else {
+    }
+  };
   //////////////////////////////
   //Control Functions on page load
   const gsapInit = function () {
@@ -37,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
       (gsapContext) => {
         let { isMobile, isTablet, isDesktop, reduceMotion } = gsapContext.conditions;
         //functional interactions
+        hero(gsapContext);
         accordion(gsapContext);
         marquee(gsapContext);
         sliderComponent();
