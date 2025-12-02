@@ -16,8 +16,6 @@ export const tabs = function () {
   const DURATION = 'data-ix-tabs-duration';
   const PAUSE_ON_HOVER = 'data-ix-tabs-pause-on-hover';
   const AUTOPLAYVIDEOS = 'data-ix-tabs-autoplay-videos'; // ADDED
-  const AUTOPLAY_VIDEO_LENGTH = 'data-ix-tabs-autoplay-video-length'; // ADDED
-
   const EASE = 'data-ix-tabs-ease';
 
   //select all the wrap elements
@@ -150,7 +148,7 @@ export const tabs = function () {
             animating = false;
             if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
           },
-          defaults: { duration: duration, ease: 'power1.out' },
+          defaults: { duration: duration, ease: ease },
         });
         if (slideTabs) {
           tl.set(currentPanel, { display: 'block', position: 'relative' });
