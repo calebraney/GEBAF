@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
           scale: 1,
         },
         {
-          scale: 7,
+          scale: 8,
         },
         '<'
       );
