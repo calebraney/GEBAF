@@ -11,7 +11,7 @@ import { loader } from './interactions/loader';
 document.addEventListener('DOMContentLoaded', function () {
   // Comment out for production
   // console.log('Local Script');
-  console.log('Custom Code Loaded');
+  // console.log('Custom Code Loaded');
   // register gsap plugins if available
   if (gsap.ScrollTrigger !== undefined) {
     gsap.registerPlugin(ScrollTrigger);
@@ -33,9 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const trigger = document.querySelector('.hero_trigger');
     const mask = document.querySelector('.hero_mask');
     const maskPath = document.querySelector('.hero_path');
+    const container = document.querySelector('.hero_sticky_container');
 
     const bird = document.querySelector('.hero_bird');
-    const overlay = document.querySelector('.hero_overlay');
+    const overlay = [document.querySelectorAll('.hero_overlay')];
 
     const newPath = 'M0 0 L0 0 L1 0 L1 0 L1 1 L0 1 Z';
 
@@ -90,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let loadTL = gsap.timeline({
       paused: true,
-      delay: 0.8,
+      // delay: 0.8,
       defaults: {
         duration: 1.2,
         ease: 'power2.out',
@@ -100,6 +101,9 @@ document.addEventListener('DOMContentLoaded', function () {
         createScrollTL();
       },
     });
+    loadTL.set(container, {
+      opacity: 1,
+    });
     loadTL.fromTo(
       spacer,
       {
@@ -107,7 +111,8 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       {
         '--number': '100',
-      }
+      },
+      '<1'
     );
     loadTL.fromTo(
       bird,
