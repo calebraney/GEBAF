@@ -94,8 +94,8 @@ export const tabs = function () {
     buttonList.setAttribute('role', 'tablist');
     buttonItems.forEach((btn) => btn.setAttribute('role', 'tab'));
     panelItems.forEach((panel) => panel.setAttribute('role', 'tabpanel'));
-    console.log('new tabs');
     let activeIndex = 0;
+    //function to update tabs
     const makeActive = (index, focus = false, animate = true, pause = true) => {
       if (animating) return;
 

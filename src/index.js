@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const bird = document.querySelector('.hero_bird');
     const overlay = [document.querySelectorAll('.hero_overlay')];
+    const blur = document.querySelector('.hero_sticky_blur');
 
     const newPath = 'M0 0 L0 0 L1 0 L1 0 L1 1 L0 1 Z';
 
@@ -78,6 +79,17 @@ document.addEventListener('DOMContentLoaded', function () {
           '--number': '70',
         },
         '<'
+      );
+      scrollTL.fromTo(
+        blur,
+        {
+          '--number': '0',
+        },
+        {
+          '--number': '100',
+          duration: 0.25,
+        },
+        '<.5'
       );
       //morph tween not currently working
       // scrollTL.to(
